@@ -1,6 +1,9 @@
 const score = document.querySelector('.score'),
 		start = document.querySelector('.start'),
-		gameArea = document.querySelector('.gameArea');
+		gameArea = document.querySelector('.gameArea'),
+		car = document.createElement('div');
+
+car.classList.add('car');
 
 const keys = {
 	ArrowUp: false,
@@ -21,13 +24,17 @@ document.addEventListener('keyup', stopRun);
 
 function startGame() {
 	start.classList.add('hide');
+	setting.start = true;
+	gameArea.appendChild(car);
 	requestAnimationFrame(playGame);
 };
 
 function playGame() {
-	console.log('start game');
-	requestAnimationFrame(playGame);
-
+	console.log('Play game!!!!');
+	if (setting.start) {
+		requestAnimationFrame(playGame);
+	};
+	
 };
 
 function startRun(event) {
