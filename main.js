@@ -25,6 +25,15 @@ document.addEventListener('keyup', stopRun);
 function startGame() {
 	start.classList.add('hide');
 	setting.start = true;
+
+	for (let i = 0; i < 20; i++) {
+		const line = document.createElement('div');
+		line.classList.add('line');
+		line.style.top = (i * 100) + 'px';
+		line.y = i * 100;
+		gameArea.appendChild(line);
+
+	}
 	
 	gameArea.appendChild(car);
 	setting.x = car.offsetLeft;
@@ -33,8 +42,11 @@ function startGame() {
 };
 
 function playGame() {
-	console.log('Play game!!!!');
+
 	if (setting.start) {
+		
+		moveRoad();
+
 		if (keys.ArrowLeft && setting.x > 3) {
 			setting.x -= setting.speed;
 		}
@@ -47,7 +59,7 @@ function playGame() {
 		if (keys.ArrowDown && setting.y < (gameArea.offsetHeight - 105)) {
 			setting.y += setting.speed;
 		}
-		if (keys.ArrowUp && setting.y > 3) {
+		if (keys.ArrowUp && setting.y > 5) {
 			setting.y -= setting.speed;
 		}
 
@@ -66,4 +78,16 @@ function stopRun(event) {
 		event.preventDefault();
 		keys[event.key] = false;
 };
+
+function moveRoad() {
+	let lines = document.querySelectorAll('.line');
+	lines.forEach(function(line) {
+		line.y += setting.speed;
+		line.style.top = line.y + 'px';
+		if (line.y > document.documentElement.clientHeight) {
+			line.y = -100;
+		}
+	})
+
+}
 
