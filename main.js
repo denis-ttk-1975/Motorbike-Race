@@ -25,13 +25,33 @@ document.addEventListener('keyup', stopRun);
 function startGame() {
 	start.classList.add('hide');
 	setting.start = true;
+	
 	gameArea.appendChild(car);
+	setting.x = car.offsetLeft;
+	setting.y = car.offsetTop;
 	requestAnimationFrame(playGame);
 };
 
 function playGame() {
 	console.log('Play game!!!!');
 	if (setting.start) {
+		if (keys.ArrowLeft && setting.x > 3) {
+			setting.x -= setting.speed;
+		}
+		if (keys.ArrowRight && setting.x < (gameArea.offsetWidth - 53)) {
+			setting.x += setting.speed;
+		}
+
+		car.style.left = setting.x + 'px';
+
+		if (keys.ArrowDown && setting.y < (gameArea.offsetHeight - 105)) {
+			setting.y += setting.speed;
+		}
+		if (keys.ArrowUp && setting.y > 3) {
+			setting.y -= setting.speed;
+		}
+
+		car.style.top = setting.y + 'px';
 		requestAnimationFrame(playGame);
 	};
 	
