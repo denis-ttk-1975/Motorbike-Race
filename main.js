@@ -26,6 +26,8 @@ document.addEventListener('keyup', stopRun);
 function startGame() {
 	start.classList.add('hide');
 	gameArea.innerHTML = '';
+	
+
 	setting.start = true;
 	setting.score = 0;
 
@@ -50,6 +52,9 @@ function startGame() {
 	}
 	
 	gameArea.appendChild(car);
+	car.style.left = (gameArea.offsetWidth/2 - car.offsetWidth/2) + 'px';
+	car.style.top = 'auto';
+	car.style.bottom = '10px';
 	setting.x = car.offsetLeft;
 	setting.y = car.offsetTop;
 	requestAnimationFrame(playGame);
@@ -136,6 +141,8 @@ function moveEnemy() {
 			item.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px';
 			if ((Math.random() * 2) < 1) {
 				item.style.backgroundImage = 'url(./image/enemy2.png)';
+			} else {
+				item.style.backgroundImage = 'url(./image/enemy.png)';
 			}
 		}
 
