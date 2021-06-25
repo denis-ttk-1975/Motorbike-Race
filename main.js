@@ -15,7 +15,7 @@ const keys = {
 const setting = {
 	start: false,
 	score: 0,
-	speed: 5,
+	speed: 3,
 	traffic: 3,
 };
 
@@ -25,7 +25,9 @@ document.addEventListener('keyup', stopRun);
 
 function startGame() {
 	start.classList.add('hide');
+	gameArea.innerHTML = '';
 	setting.start = true;
+	setting.score = 0;
 
 	for (let i = 0; i < getQuantityElements(100); i++) {
 		const line = document.createElement('div');
@@ -57,8 +59,11 @@ function playGame() {
 
 	if (setting.start) {
 		
+		setting.score += setting.speed;
+		score.innerHTML = "Score:<br>" + setting.score;
 		moveRoad();
 		moveEnemy();
+		
 
 		if (keys.ArrowLeft && setting.x > 3) {
 			setting.x -= setting.speed;
@@ -110,12 +115,26 @@ function moveRoad() {
 function moveEnemy() {
 	let enemy = document.querySelectorAll('.enemy');
 	enemy.forEach(function(item) {
+		let carRect = car.getBoundingClientRect();
+		let enemyRect = item.getBoundingClientRect();
+
+		if (carRect.top <= enemyRect.bottom && 
+			carRect.right >= enemyRect.left &&
+			carRect.left <= enemyRect.right &&
+			carRect.bottom >= enemyRect.top) {
+				setting.start = false;
+				start.classList.remove('hide');
+				console.log(start.offsetHeight);
+				console.log(score.offsetHeight);
+				start.style.top = score.offsetHeight + 'px';
+			}
+
 		item.y += setting.speed / 2;
 		item.style.top = item.y + 'px';
 		if (item.y >= document.documentElement.clientHeight) {
 			item.y = -100 * setting.traffic;
 			item.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px';
-			if (Math.random() * 2 < 1) {
+			if ((Math.random() * 2) < 1) {
 				item.style.backgroundImage = 'url(./image/enemy2.png)';
 			}
 		}
