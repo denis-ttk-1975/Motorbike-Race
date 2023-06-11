@@ -7,5 +7,5 @@
 ## Author - Denis Ulesov
 ## Автор - Денис Улесов
 
-#### Used tools: HTTP, CSS, JS
-#### Используемые библиотеки и фреймворки: HTTP, CSS, JS
+#### Used tools: HTML, CSS, JS
+#### Используемые библиотеки и фреймворки: HTML, CSS, JS
